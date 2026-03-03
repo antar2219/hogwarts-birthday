@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
+const isMobile = window.innerWidth <= 768;
+const isLowPower = isMobile || navigator.hardwareConcurrency <= 4;
 /* ================= TIMER LOCK ================= */
 
 const unlockDate = new Date("March 4, 2026 00:00:00").getTime();
@@ -68,7 +70,13 @@ document.addEventListener("mousemove", function(e){
   }
   createSpark(e.clientX, e.clientY);
 });
+let lastSparkTime = 0;
+
 function createSpark(x,y){
+  const now = Date.now();
+  if(now - lastSparkTime < 50) return;  // limit spark rate
+  lastSparkTime = now;
+
   const spark = document.createElement("div");
   spark.style.position="fixed";
   spark.style.left=x+"px";
@@ -83,10 +91,10 @@ function createSpark(x,y){
   spark.animate([
     {opacity:1, transform:"scale(1)"},
     {opacity:0, transform:"scale(0.2)"}
-  ],{duration:500});
+  ],{duration:400});
 
   document.body.appendChild(spark);
-  setTimeout(()=>spark.remove(),500);
+  setTimeout(()=>spark.remove(),400);
 }
 
 /* ========= SCREEN SWITCH ========= */
@@ -141,7 +149,9 @@ hat.addEventListener("click", function(){
 
   setTimeout(()=>{
 
-    document.body.classList.add("shake");
+    if(!isLowPower){
+      document.body.classList.add("shake");
+    }
     
     document.body.classList.add("zoomPulse");
     setTimeout(()=>{
@@ -220,7 +230,7 @@ letterClosed.addEventListener("click", function(){
     letterIsOpen = true;
 
     // MASSIVE MAGIC BURST
-    for(let i=0;i<60;i++){
+    for(let i=0;i<(isLowPower ? 25 : 60);i++){
 
       const spark=document.createElement("div");
       spark.style.position="fixed";
@@ -311,7 +321,7 @@ function createFirework(){
   const x=Math.random()*canvas.width;
   const y=Math.random()*canvas.height/2;
 
-  for(let i=0;i<30;i++){
+  for(let i=0;i<(isLowPower ? 12 : 30);i++){
     particles.push({
       x,y,
       angle:Math.random()*2*Math.PI,
@@ -325,7 +335,7 @@ function animate(){
   requestAnimationFrame(animate);
 
   ctx.fillStyle=bgColor;
-  ctx.globalAlpha=0.2;
+  ctx.globalAlpha= isLowPower ? 0.3 : 0.2;
   ctx.fillRect(0,0,canvas.width,canvas.height);
   ctx.globalAlpha=1;
 
@@ -339,7 +349,7 @@ function animate(){
   });
 }
 
-setInterval(createFirework,2000);
+setInterval(createFirework, isLowPower ? 3500 : 2000);
 animate();
 /* ================= LIGHTNING ================= */
 
@@ -359,7 +369,7 @@ function lightningFlash(){
 }
 
 setInterval(()=>{
-  if(Math.random() > 0.5){
+  if(Math.random() > (isLowPower ? 0.8 : 0.5)){
     lightningFlash();
   }
 },4000);
