@@ -3,7 +3,7 @@ const isMobile = window.innerWidth <= 768;
 const isLowPower = isMobile || navigator.hardwareConcurrency <= 4;
 /* ================= TIMER LOCK ================= */
 
-const unlockDate = new Date(Date.now() + 4 * 60 * 1000).getTime();
+const unlockDate = new Date(Date.now() + 10 * 1000).getTime();
 const now = new Date().getTime();
 
 const lockScreen = document.getElementById("lockScreen");
@@ -135,17 +135,16 @@ startBtn.addEventListener("click", function(){
 /* ========= SORTING HAT ========= */
 
 const houses = [
-  {name:"Gryffindor!", color:"#740001"},
-  {name:"Slytherin!", color:"#1a472a"},
-  {name:"Ravenclaw!", color:"#0e1a40"},
-  {name:"Hufflepuff!", color:"#ecb939"}
+  {name:"Gryffindor!", color:"#740001", logo:"gryffindor.png"},
+  {name:"Slytherin!", color:"#1a472a", logo:"slytherin.png"},
+  {name:"Ravenclaw!", color:"#0e1a40", logo:"ravenclaw.png"},
+  {name:"Hufflepuff!", color:"#ecb939", logo:"hufflepuff.png"}
 ];
 
 hat.addEventListener("click", function(){
 
   const chosen = houses[Math.floor(Math.random()*houses.length)];
 
-  // CHAOS BUILDUP
   hat.classList.add("glow");
 
   setTimeout(()=>{
@@ -153,35 +152,55 @@ hat.addEventListener("click", function(){
     if(!isLowPower){
       document.body.classList.add("shake");
     }
-    
+
     document.body.classList.add("zoomPulse");
     setTimeout(()=>{
-    document.body.classList.remove("zoomPulse");
+      document.body.classList.remove("zoomPulse");
     },800);
+
     const flash = document.getElementById("flash");
     flash.classList.add("active");
 
-    bgColor = chosen.color;
-    document.body.style.background = chosen.color;
+    document.documentElement.style.setProperty('--bg-color', chosen.color);
 
     thunder.play().catch(()=>{});
 
+    // 🎤 STEP 1: Hat Speaks First
     const speech = new SpeechSynthesisUtterance(chosen.name);
     speech.rate = 0.7;
     speech.pitch = 0.6;
     speechSynthesis.speak(speech);
 
-    // FIREWORK STORM MODE
+    // 🎆 Fireworks burst during announcement
     for(let i=0;i<8;i++){
       setTimeout(createFirework, i*150);
     }
 
+    // 🏰 STEP 2: After speech delay → Show logo reveal
     setTimeout(()=>{
-      document.body.classList.remove("shake");
-      hat.classList.remove("glow");
-      show(letterScreen);
-      dropLetterChaos();
-    },3500);
+
+      const houseReveal = document.getElementById("houseReveal");
+      const houseLogo = document.getElementById("houseLogo");
+      const houseName = document.getElementById("houseName");
+
+      houseLogo.src = chosen.logo;
+      houseName.innerText = chosen.name;
+
+      houseReveal.classList.remove("hidden");
+
+      // After showing logo for 2.5 seconds → go to letter
+      setTimeout(()=>{
+
+        houseReveal.classList.add("hidden");
+        document.body.classList.remove("shake");
+        hat.classList.remove("glow");
+
+        show(letterScreen);
+        dropLetterChaos();
+
+      },2500);
+
+    },3000); // Delay after speech
 
   },1200);
 
@@ -287,21 +306,16 @@ Ganga Prasad Mukherjee Road, Kolkata, West Bengal - 700025
 </div>
 
 <p>Dear Miss Shreya,</p>
-
 <div class="letter-body">
-<p>We are delighted to inform you that you have been officially accepted into the most enchanting celebration of the year — Your Birthday.</p>
-
+<p>We are delighted to inform you that you have been officially accepted into the most enchanting celebration of the year — Your Birthday(;</p>
 <p>On this most magical occasion, we are pleased to announce that joy, laughter, surprises, and an abundance of happiness have been prepared especially for you.</p>
-
 <p>May your day be filled with sparkling moments brighter than Lumos, sweeter than Honeydukes treats, and warmer than the Gryffindor common room fire.</p>
-
 <p>Term of Happiness begins immediately and lasts for the entire year. We eagerly await your radiant smile and the making of unforgettable memories.</p>
 </div>
-
 <div class="letter-closing">
-Yours sincerely,<br><br>
+Yours sincerely,<br>
 Professor of Endless Celebrations<br>
-On behalf of all who adore you
+Antar 
 </div>
 `;
 
