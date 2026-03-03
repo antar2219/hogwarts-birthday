@@ -3,7 +3,7 @@ const isMobile = window.innerWidth <= 768;
 const isLowPower = isMobile || navigator.hardwareConcurrency <= 4;
 /* ================= TIMER LOCK ================= */
 
-const unlockDate = new Date(Date.now() + 10 * 1000).getTime();
+const unlockDate = new Date("March 4, 2026 00:00:00").getTime();
 const now = new Date().getTime();
 
 const lockScreen = document.getElementById("lockScreen");
@@ -38,7 +38,7 @@ if(now < unlockDate){
 }else{
   lockScreen.classList.remove("active");
   welcomeScreen.classList.add("active");
-  midnightUnlock();
+  midnightUnlock(); // keep this for dramatic unlock
 }
 /* ========= ELEMENTS ========= */
 
