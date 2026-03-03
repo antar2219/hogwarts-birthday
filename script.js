@@ -1,13 +1,9 @@
 document.addEventListener("DOMContentLoaded", function() {
-
-
-const unlockDate = new Date("March 3, 2026 15:34:00").getTime();
-const now = new Date().getTime();
 const isMobile = window.innerWidth <= 768;
 const isLowPower = isMobile || navigator.hardwareConcurrency <= 4;
 /* ================= TIMER LOCK ================= */
 
-const unlockDate = new Date("March 4, 2026 00:00:00").getTime();
+const unlockDate = new Date(Date.now() + 4 * 60 * 1000).getTime();
 const now = new Date().getTime();
 
 const lockScreen = document.getElementById("lockScreen");
@@ -37,21 +33,12 @@ function updateCountdown(){
 }
 
 if(now < unlockDate){
-
   updateCountdown();
   var timerInterval = setInterval(updateCountdown,1000);
-
 }else{
-
-  // Remove lock
   lockScreen.classList.remove("active");
-
-  // Activate welcome
   welcomeScreen.classList.add("active");
-
-  // Trigger unlock effects
   midnightUnlock();
-
 }
 /* ========= ELEMENTS ========= */
 
@@ -416,6 +403,3 @@ function midnightUnlock(){
 }
 
 });
-
-
-
