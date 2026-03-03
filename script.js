@@ -1,10 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-/* ================= SMART DEV MODE ================= */
 
-const urlParams = new URLSearchParams(window.location.search);
-const DEV_MODE = urlParams.get("dev") === "true";
 
-const unlockDate = new Date("March 4, 2026 00:00:00").getTime();
+const unlockDate = new Date("March 3, 2026 15:30:00").getTime();
 const now = new Date().getTime();
 const isMobile = window.innerWidth <= 768;
 const isLowPower = isMobile || navigator.hardwareConcurrency <= 4;
@@ -39,7 +36,7 @@ function updateCountdown(){
   countdown.innerHTML = `${hours}h ${minutes}m ${seconds}s`;
 }
 
-if(!DEV_MODE && now < unlockDate){
+if(now < unlockDate){
 
   updateCountdown();
   var timerInterval = setInterval(updateCountdown,1000);
