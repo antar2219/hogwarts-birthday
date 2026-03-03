@@ -390,9 +390,6 @@ function midnightUnlock(){
   },2000);
 
 }
-show(letterScreen);
-letterClosed.style.display = "none";
-letterOpen.classList.remove("hidden");
-typeLetter();
 
 });
+
