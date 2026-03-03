@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shreya's Hogwarts Birthday</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="flash" class="flash"></div>
+<img src="wand.png" id="wizardWand">
+<canvas id="fireworks"></canvas>
+
+<audio id="bgMusic">
+  <source src="music.mp3">
+</audio>
+
+<audio id="thunder">
+  <source src="thunder.mp3">
+</audio>
+<div id="lockScreen" class="screen active">
+  <h1>The Magic Awakens Soon ✨</h1>
+  <h2 id="countdown"></h2>
+</div>
+<div id="welcome" class="screen">
+  <h1>Welcome to Hogwarts, Shreya ✨</h1>
+  <button id="startBtn">Begin the Ceremony</button>
+</div>
+
+<div id="sorting" class="screen">
+  <h2>The Sorting Hat Awaits...</h2>
+  <img src="sortinghat.png" id="hat">
+</div>
+
+<div id="letterScreen" class="screen">
+  <img src="letter.png" id="letterClosed">
+  <div id="letterOpen" class="hidden">
+    <div class="parchment">
+      <p id="letterText"></p>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>

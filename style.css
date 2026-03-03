@@ -1,0 +1,190 @@
+@font-face{
+  font-family:'HarryP';
+  src:url('HarryP.ttf') format('truetype');
+}
+body{
+  font-family:'HarryP', serif;
+}
+h1{
+  font-size:48px;
+}
+
+h2{
+  font-size:36px;
+}
+
+button{
+  padding:12px 25px;
+  font-size:22px;
+  background:transparent;
+  border:2px solid gold;
+  color:gold;
+  cursor:none;
+  transition:0.3s;
+}
+
+button:hover{
+  background:gold;
+  color:black;
+}
+
+body{
+  font-family:'HarryP', serif;
+  background:black;
+  color:gold;
+  overflow:hidden;
+  text-align:center;
+  transition:background 1s ease;
+  cursor:none;   /* HIDE REAL CURSOR */
+}
+canvas{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+}
+
+.screen{
+  position:absolute;
+  inset:0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity 1s ease;
+  z-index:2;
+}
+
+.screen.active{
+  opacity:1;
+  pointer-events:auto;
+}
+
+button{
+  padding:12px 25px;
+  font-size:18px;
+  margin-top:20px;
+  cursor:pointer;
+}
+
+#hat{
+  width:200px;
+  cursor:pointer;
+}
+
+#letterClosed{
+  width:250px;
+  cursor:pointer;
+}
+
+.parchment{
+  background:url("parchment.jpg") center/cover no-repeat;
+  padding:55px 60px;
+  width:620px;
+  max-width:92%;
+  border-radius:10px;
+  color:#1a1208;              /* Darker ink */
+  font-family:'Garamond','Georgia',serif;
+  font-size:18px;
+  line-height:1.6;
+  text-align:left;            /* Important */
+  box-shadow:0 0 25px rgba(0,0,0,0.4);
+}
+.letter-title{
+  font-family:'HarryP', serif;
+  font-size:38px;
+  text-align:center;     /* Only title centered */
+  margin-bottom:25px;
+}
+
+.letter-address{
+  margin-bottom:20px;
+}
+
+.letter-body p{
+  margin-bottom:14px;
+  text-indent:25px;      /* Real letter indent */
+}
+
+.letter-closing{
+  margin-top:30px;
+}
+.hidden{
+  display:none;
+}
+/* CHAOS FLASH */
+.flash{
+  position:fixed;
+  inset:0;
+  background:white;
+  opacity:0;
+  z-index:10;
+  pointer-events:none;
+}
+
+.flash.active{
+  animation:flashAnim 0.3s ease;
+}
+
+@keyframes flashAnim{
+  0%{opacity:1;}
+  100%{opacity:0;}
+}
+
+/* SCREEN SHAKE */
+.shake{
+  animation:shakeAnim 0.5s ease;
+}
+
+@keyframes shakeAnim{
+  0%{transform:translate(0)}
+  25%{transform:translate(-15px,10px)}
+  50%{transform:translate(15px,-10px)}
+  75%{transform:translate(-10px,5px)}
+  100%{transform:translate(0)}
+}
+
+/* HAT GLOW */
+#hat.glow{
+  filter:drop-shadow(0 0 40px gold);
+  transform:scale(1.1);
+}
+/* Hide default cursor */
+
+
+/* Wand */
+#wizardWand{
+  position:fixed;
+  width:60px;
+  pointer-events:none;
+  z-index:9999;
+  transform:translate(-5px,-5px);
+}
+.zoomPulse{
+  animation:zoomPulseAnim 0.8s ease;
+}
+
+@keyframes zoomPulseAnim{
+  0%{transform:scale(1);}
+  50%{transform:scale(1.08);}
+  100%{transform:scale(1);}
+}
+/* Storm background */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:linear-gradient(to bottom, #0f2027, #203a43, #2c5364);
+  z-index:-1;
+}
+#lockScreen{
+  background:black;
+  color:gold;
+}
+
+#countdown{
+  font-size:40px;
+  margin-top:20px;
+}
